@@ -1,9 +1,19 @@
 import random
+import time
+import sys
+
+#delay print
+def delay_print(letter):
+    for i in letter:
+        sys.stdout.write(i)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+def pause():
+    p = time.sleep(1)
 
 #Determine the effectiveness of the attack
 def attack_types(attack, defense):
-
-    inefective = 0
 
     nve = [.25, .5]
     not_Very_Effective = random.choice(nve)
@@ -12,31 +22,25 @@ def attack_types(attack, defense):
 
     super_Effective = 2
 
-    if attack == "fire"  and defense == "water":
-        print("\nNot very effective!")
+    if attack == "fire" and defense == "water":
         return not_Very_Effective
     if attack == "fire" and defense == "fire":
         return normal
     if attack == "fire" and defense == "grass":
-        print("\nSuper effective!")
         return super_Effective
 
     if attack == "water"  and defense == "grass":
-        print("\nNot very effective!")
         return not_Very_Effective
     if attack == "water" and defense == "water":
         return normal
     if attack == "water" and defense == "fire":
-        print("\nSuper effective!")
         return super_Effective
 
     if attack == "grass"  and defense == "fire":
-        print("\nNot very effective!")
         return not_Very_Effective
     if attack == "grass" and defense == "grass":
         return normal
     if attack == "grass" and defense == "water":
-        print("\nSuper effective!")
         return super_Effective
     
 #Modifier formula
@@ -60,18 +64,17 @@ def modifier(target,weather):
     crit= [1 ,2 , 4]
     critic = random.choice(crit)
     if critic >= 2 and attack_types(atkType,dfsType) >=2:
-        print("\nA Critical Hit!\n")
+        delay_print("\nA Critical Hit!\n")
     #random
     r = [0.85, 1]
     rand = random.choice(r) 
 
-
-    modi = target * weather * attack_types(atkType,dfsType) * critic * rand
+    modi = target * weather *attack_types(atkType,dfsType)* critic * rand
     return  modi
    
 #Calculate the damage of the attacker
 def calculate_damage(level,atk,dfs,pow):
-    return (((2*level/5)+2) * pow * atk / dfs) / 50 + 2
+    return (((((2*level)/5)+2) * pow * atk / dfs) / 50 + 2)
 
 #---------------------Choose 1st Pokemon-----------------#
 print("\nWho is the attacker?")
@@ -80,7 +83,8 @@ firstPokemon = int(input("\n1.Charizard \n2.Feraligatr \n3.Venusaur\nChoose your
 #Charizard
 if firstPokemon == 1:
     firstPokemon = "Charizard"
-    print("\nYou chose Charizard\n")
+    delay_print("\nYou chose Charizard\n")
+    pause()
     atkType = "fire"
     move = int(input("1.Fire Blast(110 power) \n2.slash(70 power) \n\nChoose your move!:"))
     if move == 1:
@@ -97,7 +101,8 @@ if firstPokemon == 1:
 #Feraligatr
 if firstPokemon == 2:
     firstPokemon = "Feraligatr"
-    print("\nYou chose Feraligatr\n")
+    pause()
+    delay_print("\nYou chose Feraligatr\n")
     atkType = "water"
     move = int(input("1.Hydropump(110 power) \n2.Thrash(120 power)\n\nChoose your move!:"))
     if move == 1:
@@ -114,7 +119,8 @@ if firstPokemon == 2:
 #Venusaur
 if firstPokemon == 3:
     firstPokemon = "Venusaur"
-    print("\nYou chose Venusaur\n")
+    delay_print("\nYou chose Venusaur\n")
+    pause()
     atkType = "grass"
     move = int(input("1.Solar beam(120 power) \n2.double edge(120 power)\n\nChoose your move!:"))
     if move == 1:
@@ -135,7 +141,8 @@ secondPokemon= int(input("\n1.Charizard \n2.Feraligatr \n3.Venusaur\nChoose your
 #Charizard
 if secondPokemon == 1:
     secondPokemon = "Charizard"
-    print("\nYou chose Charizard\n")
+    delay_print("\nYou chose Charizard!\n")
+    pause()
     dfsType = "fire"
     level = int(input("Level:"))
     dfs = int(input("defense:"))
@@ -143,7 +150,8 @@ if secondPokemon == 1:
 #Feraligatr
 if secondPokemon == 2:
     secondPokemon = "Feraligatr"
-    print("\nYou chose Feraligatr\n")
+    delay_print("\nYou chose Feraligatr!\n")
+    pause()
     dfsType = "water"
     level = int(input("Level:"))
     dfs = int(input("defense:"))
@@ -151,7 +159,8 @@ if secondPokemon == 2:
 #Venusaur
 if secondPokemon == 3:
     secondPokemon = "Venausar"
-    print("\nYou chose Venusaur\n")
+    delay_print("\nYou chose Venusaur!\n")
+    pause()
     dfsType = "grass"
     level = int(input("Level:")) 
     dfs = int(input("defense:"))
@@ -160,7 +169,14 @@ target = int(input("\ntarget:"))
 print("\nChoose:beneficial, againts,normal")
 weather = input("weather:")
 
+attackType = attack_types(atkType,dfsType)
+
+if attackType <= 0.5:
+    delay_print("\nNot very effective!")
+if attackType == 2:
+    delay_print("\nSuper effective!")
+
 #Calculate the total damage of the attacker
 calculate = calculate_damage(level,atk,dfs,pow) * modifier(target,weather) * stab
 
-print("\n{}{}{}{}{}{}{}{}".format (firstPokemon , " Attacks " , secondPokemon , " using " , move ," and deals ", calculate , " damage"))
+delay_print("\n{}{}{}{}{}{}{}{}".format (firstPokemon , " Attacks " , secondPokemon , " using " , move ," and deals ", calculate , " damage"))
