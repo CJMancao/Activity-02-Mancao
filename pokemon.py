@@ -44,32 +44,33 @@ def attack_types(attack, defense):
         return super_Effective
     
 #Modifier formula
-def modifier(target,weather):
-
-    #Target count
-    if target >=2:          
-        target = 0.5
-    if target == 1:
-        target = 1
+def modifier():
+    #target
+    target = 1
 
     #Weather
-    if weather == "beneficial":
-        weather = 1.5
-    if weather  == "againts":
-        weather = 0.5
-    if weather == "normal":
-        weather = 1
+    weather = 1
 
     #Critical random
-    crit= [1 ,2 , 4]
+    crit= [1 ,2]
     critic = random.choice(crit)
     if critic >= 2 and attack_types(atkType,dfsType) >=2:
         delay_print("\nA Critical Hit!\n")
     #random
     r = [0.85, 1]
-    rand = random.choice(r) 
+    rand = random.choice(r)
 
-    modi = target * weather *attack_types(atkType,dfsType)* critic * rand
+    #Badge
+    badge = 1
+
+    #other
+    other = 1
+
+    #burn
+    burn = 1
+
+
+    modi = target * weather *attackType* critic * rand * badge * burn * other * stab
     return  modi
    
 #Calculate the damage of the attacker
@@ -165,9 +166,7 @@ if secondPokemon == 3:
     level = int(input("Level:")) 
     dfs = int(input("defense:"))
 
-target = int(input("\ntarget:"))
-print("\nChoose:beneficial, againts,normal")
-weather = input("weather:")
+target =1
 
 attackType = attack_types(atkType,dfsType)
 
@@ -177,6 +176,6 @@ if attackType == 2:
     delay_print("\nSuper effective!")
 
 #Calculate the total damage of the attacker
-calculate = calculate_damage(level,atk,dfs,pow) * modifier(target,weather) * stab
+calculate = calculate_damage(level,atk,dfs,pow) * modifier()
 
 delay_print("\n{}{}{}{}{}{}{}{}".format (firstPokemon , " Attacks " , secondPokemon , " using " , move ," and deals ", calculate , " damage"))
