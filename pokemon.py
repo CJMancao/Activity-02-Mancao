@@ -83,7 +83,7 @@ firstPokemon = int(input("\n1.Charizard \n2.Feraligatr \n3.Venusaur\nChoose your
 #Charizard
 if firstPokemon == 1:
     firstPokemon = "Charizard"
-    delay_print("\nYou chose Charizard\n")
+    delay_print("\nYou chose Charizard!\n")
     pause()
     atkType = "fire"
     move = int(input("1.Fire Blast(110 power) \n2.slash(70 power) \n\nChoose your move!:"))
@@ -102,7 +102,7 @@ if firstPokemon == 1:
 if firstPokemon == 2:
     firstPokemon = "Feraligatr"
     pause()
-    delay_print("\nYou chose Feraligatr\n")
+    delay_print("\nYou chose Feraligatr!\n")
     atkType = "water"
     move = int(input("1.Hydropump(110 power) \n2.Thrash(120 power)\n\nChoose your move!:"))
     if move == 1:
@@ -119,7 +119,7 @@ if firstPokemon == 2:
 #Venusaur
 if firstPokemon == 3:
     firstPokemon = "Venusaur"
-    delay_print("\nYou chose Venusaur\n")
+    delay_print("\nYou chose Venusaur!\n")
     pause()
     atkType = "grass"
     move = int(input("1.Solar beam(120 power) \n2.double edge(120 power)\n\nChoose your move!:"))
